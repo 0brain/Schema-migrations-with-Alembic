@@ -16,9 +16,15 @@ from alembic import op
 import sqlalchemy as sa
 
 
-def upgrade():
-    pass
+def upgrade():  
+    op.create_table(
+        'bug',
+        sa.Column('id', sa.Integer, primary_key=True),
+        sa.Column('bug_tracker_url', sa.String(), nullable=False),
+        sa.Column('root_cause', sa.String()),
+        sa.Column('who', sa.String()),
+        sa.Column('when', sa.DateTime(), default=sa.func.now()))
 
 
-def downgrade():
-    pass
+def downgrade():  
+    op.drop_table('bug')
